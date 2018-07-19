@@ -104,41 +104,41 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
         switch (answer) {
             case "high":
                 if (this.product.equals("queso")) {
-                    speechText = "right, the actual calorie count is " + quesoCal ;
+                    speechText = "You are right, the actual calorie count is " + quesoCal + ". If you want to play again say! lets play!" ;
                 } else {
-                    speechText = "wrong";
+                    speechText = "You are wrong! If you want to play again say! lets play!";
                 }
 
                 if (this.product.equals("pizza")) {
-                    speechText = "wrong";
+                    speechText = "You are wrong! If you want to play again say! lets play!";
                 } else {
-                    speechText = "right, the actual calorie count is " + pizzaCal;
+                    speechText = "You are right, the actual calorie count is " + pizzaCal + ". If you want to play again say! lets play!";
                 }
 
                 if (this.product.equals("cookie")) {
-                    speechText = "wrong";
+                    speechText = "You are wrong! If you want to play again say! lets play!";
                 } else {
-                    speechText = "right, the actual calorie count is " + cookieCal;
+                    speechText = "You are right, the actual calorie count is " + cookieCal + ". If you want to play again say! lets play!";
                 }
 
                 break;
             case "low":
                 if (this.product.equals("queso")) {
-                    speechText = "wrong";
+                    speechText = "You are wrong! If you want to play again say! lets play!";
                 } else {
-                    speechText = "right, the actual calorie count is " + quesoCal;
+                    speechText = "You are right, the actual calorie count is " + quesoCal + ". If you want to play again say! lets play!";
                 }
 
                 if (this.product.equals("pizza")) {
-                    speechText = "right, the actual calorie count is " + pizzaCal;
+                    speechText = "You are right, the actual calorie count is " + pizzaCal + ". If you want to play again say! lets play!";
                 } else {
-                    speechText = "wrong";
+                    speechText = "You are wrong! If you want to play again say! lets play!";
                 }
 
                 if (this.product.equals("cookie")) {
-                    speechText = "right, the actual calorie count is " + cookieCal;
+                    speechText = "You are right, the actual calorie count is " + cookieCal + ". If you want to play again say! lets play!";
                 } else {
-                    speechText = "wrong";
+                    speechText = "You are wrong! If you want to play again say! lets play!";
                 }
                 break;
         }
