@@ -24,6 +24,7 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 import com.amazon.speech.ui.OutputSpeech;
+import com.amazon.speech.ui.SsmlOutputSpeech;
 
 /**
  * This sample shows how to create a simple speechlet for handling speechlet requests.
@@ -114,7 +115,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
      * @return SpeechletResponse spoken and visual response for the given intent
      */
     private SpeechletResponse evaluateProduct(String product) {
-        String speechText = null;
+        String speechText = "";
         switch (product){
             case "dairy":
                 speechText = "You chose dairy.";
@@ -123,7 +124,9 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
                 speechText = "You chose produce.";
                 break;
             default:
-                speechText = "<audio src='https://s3.amazonaws.com/my-ssml-samples/cheap_thrills.mp3' />";
+                speechText = "<speak>"
+                        "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>"
+                        + "</speak>";
                 break;
         }
         return getAskResponse("product Evaluation", speechText);
