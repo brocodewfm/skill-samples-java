@@ -126,7 +126,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
                 speechText = "You chose queso.";
                 break;
             default:
-                speechText = "This option is not supported, it should be Croissant or Pizza or Queso.";
+                speechText = "<audio src='https://s3.amazonaws.com/my-ssml-samples/cheap_thrills.mp3' />";
                 break;
         }
         return getAskResponse("product Evaluation", speechText);
