@@ -104,7 +104,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
      * @return SpeechletResponse spoken and visual response for the given intent
      */
     private SpeechletResponse beginGameResponse() {
-        String speechText = "Great, lets get started! Pick a product category, You can choose Produce or Dairy!";
+        String speechText = "Great, lets get started! Your Options are  Croissant, Pizza, Queso !";
         return getAskResponse("begin game", speechText);
     }
 
@@ -116,14 +116,17 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
     private SpeechletResponse evaluateProduct(String product) {
         String speechText = null;
         switch (product){
-            case "dairy":
-                speechText = "You chose dairy.";
+            case "pizza":
+                speechText = "You chose pizza.";
                 break;
-            case "produce":
-                speechText = "You chose produce.";
+            case "croissant":
+                speechText = "You chose croissant.";
+                break;
+            case "queso":
+                speechText = "You chose queso.";
                 break;
             default:
-                speechText = "This option is not supported, it should be Produce or Dairy.";
+                speechText = "This option is not supported, it should be Croissant or Pizza or Queso.";
                 break;
         }
         return getAskResponse("product Evaluation", speechText);
