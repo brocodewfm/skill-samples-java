@@ -1,11 +1,11 @@
 /**
-    Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-
-    Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
-
-        http://aws.amazon.com/apache2.0/
-
-    or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+ * <p>
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
+ * <p>
+ * http://aws.amazon.com/apache2.0/
+ * <p>
+ * or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
  */
 package com.amazon.asksdk.helloworld;
 
@@ -32,6 +32,11 @@ import com.amazon.speech.ui.SsmlOutputSpeech;
 public class HelloWorldSpeechlet implements SpeechletV2 {
     private static final Logger log = LoggerFactory.getLogger(HelloWorldSpeechlet.class);
     private int calorieCount = 0;
+    private String product = null;
+    private String pizzaCal = "310";
+    private String cookieCal = "80";
+    private String quesoCal = "90";
+
 
     @Override
     public void onSessionStarted(SpeechletRequestEnvelope<SessionStartedRequest> requestEnvelope) {
@@ -67,16 +72,17 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
             return readRulesResponse();
         } else if ("ProductIntent".equals(intentName)) {
             String product = intent.getSlot("product").getValue();
+            this.setProduct(product);
             return evaluateProduct(product);
-        }else if ("ReadRulesIntentNo".equals(intentName)) {
+        } else if ("ReadRulesIntentNo".equals(intentName)) {
             return beginGameResponse();
-        }else if ("RepeatRulesIntentYes".equals(intentName)) {
+        } else if ("RepeatRulesIntentYes".equals(intentName)) {
             return readRulesResponse();
         } else if ("RepeatRulesIntentNo".equals(intentName)) {
             return beginGameResponse();
         } else if ("AMAZON.StopIntent".equals(intentName)) {
             return getHelpResponse();
-        }   else {
+        } else {
             return getAskResponse("HelloWorld", "This is unsupported.  Please try something else.");
         }
     }
@@ -95,7 +101,48 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
      */
     private SpeechletResponse hiLoResponse(String answer) {
         // Get the answer that you are getting, from the product
-        String speechText = "The number you picked is, too " + answer;
+        String speechText = null;
+        switch (answer) {
+            case "high":
+                if (this.product.equals("queso")) {
+                    speechText = "right, the actual calorie count is " + quesoCal ;
+                } else {
+                    speechText = "wrong";
+                }
+
+                if (this.product.equals("pizza")) {
+                    speechText = "wrong";
+                } else {
+                    speechText = "right, the actual calorie count is " + pizzaCal;
+                }
+
+                if (this.product.equals("cookie")) {
+                    speechText = "wrong";
+                } else {
+                    speechText = "right, the actual calorie count is " + cookieCal;
+                }
+
+                break;
+            case "low":
+                if (this.product.equals("queso")) {
+                    speechText = "wrong";
+                } else {
+                    speechText = "right, the actual calorie count is " + quesoCal;
+                }
+
+                if (this.product.equals("pizza")) {
+                    speechText = "right, the actual calorie count is " + pizzaCal;
+                } else {
+                    speechText = "wrong";
+                }
+
+                if (this.product.equals("cookie")) {
+                    speechText = "right, the actual calorie count is " + cookieCal;
+                } else {
+                    speechText = "wrong";
+                }
+                break;
+        }
         return getAskResponse("hi Lo response", speechText);
     }
 
@@ -105,7 +152,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
      * @return SpeechletResponse spoken and visual response for the given intent
      */
     private SpeechletResponse beginGameResponse() {
-        String speechText = "Great, lets get started! Pick a product category, You can choose Produce or Dairy!";
+        String speechText = "Great, lets get started! Your Options are Cookie, Pizza, Queso !";
         return getAskResponse("begin game", speechText);
     }
 
@@ -115,13 +162,19 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
      * @return SpeechletResponse spoken and visual response for the given intent
      */
     private SpeechletResponse evaluateProduct(String product) {
-        String speechText = "";
-        switch (product){
-            case "dairy":
-                speechText = "You chose dairy.";
+        String speechText = null;
+        switch (product) {
+            case "pizza":
+                speechText = "Our vegan pizza is topped with a delicious red sauce, Daiya vegan mozzarella-style shreds and a mix of spinach, tomatoes and Kalamata olives. The Calorie Count is 200. Is this too low or too high?";
                 break;
-            case "produce":
-                speechText = "You chose produce.";
+            case "cookie":
+                speechText = "The classic decadent Chocolate Crinkle Cookies we all love! These are perfectly soft, tender and chewy. And they're a lot like a brownie but in cookie form.  In other words these cookies are sure to satisfy! The Calorie Count is 50. Is this too low or too high?";
+                break;
+            case "queso":
+//                speechText = "Aloha queso blends creamy Monterey Jack cheese with spicy jalapenos and mild red bell peppers for the perfect medium heat. The Calorie Count is 100. Is this too low or too high?";
+                speechText = "<speak>"
+                "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>"
+                        + "</speak>";
                 break;
             default:
                 speechText = "<speak>"
@@ -230,5 +283,9 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
         Reprompt reprompt = getReprompt(speech);
 
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
+    }
+
+    private void setProduct(String product) {
+        this.product = product;
     }
 }
