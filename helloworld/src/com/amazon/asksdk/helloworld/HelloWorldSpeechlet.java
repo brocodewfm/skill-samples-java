@@ -58,7 +58,20 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
             return getHelloResponse();
         } else if ("AMAZON.HelpIntent".equals(intentName)) {
             return getHelpResponse();
-        } else {
+        } else if ("WholefoodsHiLoIntent".equals(intentName)) {
+            String answer = intent.getSlot("answer").getValue();
+            return hiLoResponse(answer);
+        } else if ("ReadRulesIntentYes".equals(intentName)) {
+            return readRulesResponse();
+        } else if ("ReadRulesIntentNo".equals(intentName)) {
+            return beginGameResponse();
+        } else if ("RepeatRulesIntentYes".equals(intentName)) {
+            return readRulesResponse();
+        } else if ("RepeatRulesIntentNo".equals(intentName)) {
+            return beginGameResponse();
+        } else if ("AMAZON.StopIntent".equals(intentName)) {
+            return getHelpResponse();
+        }   else {
             return getAskResponse("HelloWorld", "This is unsupported.  Please try something else.");
         }
     }
@@ -75,8 +88,38 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
      *
      * @return SpeechletResponse spoken and visual response for the given intent
      */
+    private SpeechletResponse hiLoResponse(String answer) {
+        String speechText = "The number you picked is, too " + answer;
+        return getAskResponse("hi Lo response", speechText);
+    }
+
+    /**
+     * Creates and returns a {@code SpeechletResponse} with a welcome message.
+     *
+     * @return SpeechletResponse spoken and visual response for the given intent
+     */
+    private SpeechletResponse beginGameResponse() {
+        String speechText = "Great, lets get started";
+        return getAskResponse("begin game", speechText);
+    }
+
+    /**
+     * Creates and returns a {@code SpeechletResponse} with a welcome message.
+     *
+     * @return SpeechletResponse spoken and visual response for the given intent
+     */
+    private SpeechletResponse readRulesResponse() {
+        String speechText = "In this game, you will be presented with a randomly selected Whole Foods product.  I will state a calorie value that is around the actual calorie value for that product.  If you think it is lower than actual, please respond TOO LOW.  If you think it is higher than actual, please respond TOO HIGH.  Your goal will be to find the first value that is higher than the true value.  Each item that you get correct will earn you a point. Would you like me to repeat the rules? Or Start the game?";
+        return getAskResponse("read rules", speechText);
+    }
+
+    /**
+     * Creates and returns a {@code SpeechletResponse} with a welcome message.
+     *
+     * @return SpeechletResponse spoken and visual response for the given intent
+     */
     private SpeechletResponse getWelcomeResponse() {
-        String speechText = "Welcome to the Alexa Skills Kit, you can say hello";
+        String speechText = "Welcome to Whole Foods Hi Lo! Would you like me to read you the rules?";
         return getAskResponse("HelloWorld", speechText);
     }
 
