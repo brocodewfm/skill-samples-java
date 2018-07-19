@@ -24,6 +24,7 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
 import com.amazon.speech.ui.OutputSpeech;
+import com.amazon.speech.ui.SsmlOutputSpeech;
 
 /**
  * This sample shows how to create a simple speechlet for handling speechlet requests.
@@ -170,10 +171,15 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
                 speechText = "The classic decadent Chocolate Crinkle Cookies we all love! These are perfectly soft, tender and chewy. And they're a lot like a brownie but in cookie form.  In other words these cookies are sure to satisfy! The Calorie Count is 50. Is this too low or too high?";
                 break;
             case "queso":
-                speechText = "Aloha queso blends creamy Monterey Jack cheese with spicy jalapenos and mild red bell peppers for the perfect medium heat. The Calorie Count is 100. Is this too low or too high?";
+//                speechText = "Aloha queso blends creamy Monterey Jack cheese with spicy jalapenos and mild red bell peppers for the perfect medium heat. The Calorie Count is 100. Is this too low or too high?";
+                speechText = "<speak>"
+                "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>"
+                        + "</speak>";
                 break;
             default:
-                speechText = "<audio src='https://s3.amazonaws.com/my-ssml-samples/cheap_thrills.mp3' />";
+                speechText = "<speak>"
+                        "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>"
+                        + "</speak>";
                 break;
         }
         return getAskResponse("product Evaluation", speechText);
