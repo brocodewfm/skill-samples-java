@@ -30,6 +30,7 @@ import com.amazon.speech.ui.OutputSpeech;
  */
 public class HelloWorldSpeechlet implements SpeechletV2 {
     private static final Logger log = LoggerFactory.getLogger(HelloWorldSpeechlet.class);
+    private int calorieCount = 0;
 
     @Override
     public void onSessionStarted(SpeechletRequestEnvelope<SessionStartedRequest> requestEnvelope) {
@@ -63,9 +64,12 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
             return hiLoResponse(answer);
         } else if ("ReadRulesIntentYes".equals(intentName)) {
             return readRulesResponse();
-        } else if ("ReadRulesIntentNo".equals(intentName)) {
+        } else if ("ProductIntent".equals(intentName)) {
+            String product = intent.getSlot("product").getValue();
+            return evaluateProduct(product);
+        }else if ("ReadRulesIntentNo".equals(intentName)) {
             return beginGameResponse();
-        } else if ("RepeatRulesIntentYes".equals(intentName)) {
+        }else if ("RepeatRulesIntentYes".equals(intentName)) {
             return readRulesResponse();
         } else if ("RepeatRulesIntentNo".equals(intentName)) {
             return beginGameResponse();
@@ -89,6 +93,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
      * @return SpeechletResponse spoken and visual response for the given intent
      */
     private SpeechletResponse hiLoResponse(String answer) {
+        // Get the answer that you are getting, from the product
         String speechText = "The number you picked is, too " + answer;
         return getAskResponse("hi Lo response", speechText);
     }
@@ -101,6 +106,27 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
     private SpeechletResponse beginGameResponse() {
         String speechText = "Great, lets get started";
         return getAskResponse("begin game", speechText);
+    }
+
+    /**
+     * Creates and returns a {@code SpeechletResponse} with a welcome message.
+     *
+     * @return SpeechletResponse spoken and visual response for the given intent
+     */
+    private SpeechletResponse evaluateProduct(product) {
+        String speechText = "";
+        switch (product){
+            case "dairy":
+                speechText = "You chose dairy.";
+                break;
+            case "produce":
+                speechText = "You chose produce.";
+                break;
+            default:
+                speechText = "This option is not supported, it should be Produce or Dairy.";
+                break;
+        }
+        return getAskResponse("product Evaluation", speechText);
     }
 
     /**
