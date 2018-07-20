@@ -36,6 +36,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
     private String pizzaCal = "310";
     private String cookieCal = "80";
     private String quesoCal = "90";
+    private Integer score = 0;
 
 
     @Override
@@ -117,6 +118,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
 
         if (product.equals("queso")) {
             speechText = "You are right! The actual calorie count is " + this.quesoCal + ". If you want to play again say! lets play!";
+            incrementScore();
         } else if (product.equals("pizza")) {
             speechText = "You are wrong! The actual calorie count is " + this.pizzaCal + ". If you want to play again say! lets play!";
         } else if (product.equals("cookie")) {
@@ -124,6 +126,10 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
         }
 
         return speechText;
+    }
+
+    private void incrementScore() {
+        this.score++;
     }
 
     private String evaluatelowResponse(String product) {
@@ -134,8 +140,10 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
             speechText = "You are wrong! The actual calorie count is " + this.quesoCal + ". If you want to play again say! lets play!";
         } else if (product.equals("pizza")) {
             speechText = "You are right! The actual calorie count is " + this.pizzaCal + ". If you want to play again say! lets play!";
+            incrementScore();
         } else if (product.equals("cookie")) {
             speechText = "You are right! The actual calorie count is " + this.cookieCal + ". If you want to play again say! lets play!";
+            incrementScore();
         }
 
         return speechText;
@@ -277,5 +285,9 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
         Reprompt reprompt = getReprompt(speech);
 
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
+    }
+
+    public Integer getScore() {
+        return score;
     }
 }
