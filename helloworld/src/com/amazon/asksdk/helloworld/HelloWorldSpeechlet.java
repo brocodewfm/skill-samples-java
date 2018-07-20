@@ -107,7 +107,11 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
                 speechText = evaluatehighResponse(this.product);
                 break;
             case "low":
-                speechText = evaluatelowResponse(this.product);break;
+                speechText = evaluatelowResponse(this.product);
+                break;
+            default:
+                speechText = "This wasn't a supported response, respond with the phrase too low or too high";
+                break;
         }
         return getAskResponse("hi Lo response", speechText);
     }
