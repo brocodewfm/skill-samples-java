@@ -32,10 +32,10 @@ import com.amazon.speech.ui.SsmlOutputSpeech;
 public class HelloWorldSpeechlet implements SpeechletV2 {
     private static final Logger log = LoggerFactory.getLogger(HelloWorldSpeechlet.class);
     private int calorieCount = 0;
-    private String product = null;
-    private String pizzaCal = "310";
-    private String cookieCal = "80";
-    private String quesoCal = "90";
+    private Integer product = null;
+    private Integer pizzaCal = 310;
+    private Integer cookieCal = 80;
+    private Integer quesoCal = 90;
 
 
     @Override
@@ -105,7 +105,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
         switch (answer) {
             case "high":
                 if (this.product.equals("queso")) {
-                    speechText = "right, the actual calorie count is " + quesoCal ;
+                    speechText = "right, the actual calorie count is " + Integer.parseInt(this.quesoCal) ;
                 } else {
                     speechText = "wrong";
                 }
@@ -113,13 +113,13 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
                 if (this.product.equals("pizza")) {
                     speechText = "wrong";
                 } else {
-                    speechText = "right, the actual calorie count is " + pizzaCal;
+                    speechText = "right, the actual calorie count is " + Integer.parseInt(this.pizzaCal);
                 }
 
                 if (this.product.equals("cookie")) {
                     speechText = "wrong";
                 } else {
-                    speechText = "right, the actual calorie count is " + cookieCal;
+                    speechText = "right, the actual calorie count is " + Integer.parseInt(this.cookieCal);
                 }
 
                 break;
@@ -127,17 +127,17 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
                 if (this.product.equals("queso")) {
                     speechText = "wrong";
                 } else {
-                    speechText = "right, the actual calorie count is " + quesoCal;
+                    speechText = "right, the actual calorie count is " + Integer.parseInt(this.quesoCal);
                 }
 
                 if (this.product.equals("pizza")) {
-                    speechText = "right, the actual calorie count is " + pizzaCal;
+                    speechText = "right, the actual calorie count is " + Integer.parseInt(this.pizzaCal);
                 } else {
                     speechText = "wrong";
                 }
 
                 if (this.product.equals("cookie")) {
-                    speechText = "right, the actual calorie count is " + cookieCal;
+                    speechText = "right, the actual calorie count is " + Integer.parseInt(this.cookieCal);
                 } else {
                     speechText = "wrong";
                 }
@@ -172,14 +172,10 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
                 break;
             case "queso":
 //                speechText = "Aloha queso blends creamy Monterey Jack cheese with spicy jalapenos and mild red bell peppers for the perfect medium heat. The Calorie Count is 100. Is this too low or too high?";
-                speechText = "<speak>"
-                "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>"
-                        + "</speak>";
+                speechText = "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>";
                 break;
             default:
-                speechText = "<speak>"
-                        "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>"
-                        + "</speak>";
+                speechText = "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>";
                 break;
         }
         return getAskResponse("product Evaluation", speechText);
@@ -285,7 +281,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
     }
 
-    private void setProduct(String product) {
+    private void setProduct(Integer product) {
         this.product = product;
     }
 }
