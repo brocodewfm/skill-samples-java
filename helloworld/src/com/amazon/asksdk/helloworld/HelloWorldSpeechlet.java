@@ -76,6 +76,8 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
             return evaluateProduct(product);
         } else if ("ReadRulesIntentNo".equals(intentName)) {
             return beginGameResponse();
+        } else if ("ScoreIntent".equals(intentName)) {
+            return whatIsMyScore();
         } else if ("RepeatRulesIntentYes".equals(intentName)) {
             return readRulesResponse();
         } else if ("RepeatRulesIntentNo".equals(intentName)) {
@@ -289,5 +291,10 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
 
     public Integer getScore() {
         return score;
+    }
+
+    private String whatIsMyScore() {
+        String speechText = "Your score is " + Integer.toString(this.getScore());
+        return getAskResponse("product Evaluation", speechText);
     }
 }
