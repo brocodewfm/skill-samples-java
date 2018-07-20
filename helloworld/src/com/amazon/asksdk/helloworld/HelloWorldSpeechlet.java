@@ -72,7 +72,6 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
             return readRulesResponse();
         } else if ("ProductIntent".equals(intentName)) {
             String product = intent.getSlot("product").getValue();
-            this.setProduct(product);
             return evaluateProduct(product);
         } else if ("ReadRulesIntentNo".equals(intentName)) {
             return beginGameResponse();
@@ -107,8 +106,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
                 speechText = evaluatehighResponse(this.product);
                 break;
             case "low":
-                speechText = evaluatelowResponse(this.product);
-                break;
+                speechText = evaluatelowResponse(this.product);break;
         }
         return getAskResponse("hi Lo response", speechText);
     }
@@ -165,18 +163,13 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
                 speechText = "Our vegan pizza is topped with a delicious red sauce, Daiya vegan mozzarella-style shreds and a mix of spinach, tomatoes and Kalamata olives. The Calorie Count is 200. Is this too low or too high?";
                 break;
             case "cookie":
-                speechText = "The classic decadent Chocolate Crinkle Cookies we all love! These are perfectly soft, tender and chewy. And they're a lot like a brownie but in cookie form.  In other words these cookies are sure to satisfy! The Calorie Count is 50. Is this too low or too high?";
+                speechText = "The classic decadent Chocolate Cookies we all love! These are perfectly soft, tender and chewy. And they're a lot like a brownie but in cookie form.  In other words these cookies are sure to satisfy! The Calorie Count is 50. Is this too low or too high?";
                 break;
             case "queso":
                 speechText = "Aloha queso blends creamy Monterey Jack cheese with spicy jalapenos and mild red bell peppers for the perfect medium heat. The Calorie Count is 100. Is this too low or too high?";
-//                speechText = "<speak>" +
-//                "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>"
-//                        + "</speak>";
                 break;
             default:
-                speechText = "<speak>" +
-                        "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>"
-                        + "</speak>";
+                speechText = "This option is not supported, try Pizza, Cookie or Queso";
                 break;
         }
         return getAskResponse("product Evaluation", speechText);
@@ -284,9 +277,5 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
         Reprompt reprompt = getReprompt(speech);
 
         return SpeechletResponse.newAskResponse(speech, reprompt, card);
-    }
-
-    private void setProduct(String product) {
-        this.product = product;
     }
 }
