@@ -295,6 +295,6 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
 
     private String whatIsMyScore() {
         String speechText = "Your score is " + Integer.toString(this.getScore());
-        return getAskResponse("product Evaluation", speechText);
+        return getAskResponse("Whats my score", speechText);
     }
 }
