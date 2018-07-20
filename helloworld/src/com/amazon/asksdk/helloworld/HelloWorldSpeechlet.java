@@ -189,7 +189,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
      * @return SpeechletResponse spoken and visual response for the given intent
      */
     private SpeechletResponse readRulesResponse() {
-        String speechText = "In this game, you will select a Whole Foods product.  I will state a calorie value that is around the actual calorie value for that product.  If you think it is lower than actual, please respond with the phrase TOO LOW.  If you think it is higher than actual, please respond with phrase TOO HIGH. Each item that you get correct will earn you a point. Would you like me to repeat the rules? Or Start the game?";
+        String speechText = "In this game, you will select a Whole Foods product.  I will state a calorie value that is around the actual calorie value for that product.  If you think it is lower than actual, please respond with the phrase TOO LOW.  If you think it is higher than actual, please respond with the phrase TOO HIGH. Each item that you get correct will earn you a point. Would you like me to repeat the rules? Or Start the game?";
         return getAskResponse("read rules", speechText);
     }
 
