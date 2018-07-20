@@ -293,7 +293,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
         return score;
     }
 
-    private String whatIsMyScore() {
+    private SpeechletResponse whatIsMyScore() {
         String speechText = "Your score is " + Integer.toString(this.getScore());
         return getAskResponse("Whats my score", speechText);
     }
