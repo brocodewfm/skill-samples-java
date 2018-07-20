@@ -104,46 +104,43 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
         String speechText = null;
         switch (answer) {
             case "high":
-                if (this.product.equals("queso")) {
-                    speechText = "You are right, the actual calorie count is " + quesoCal + ". If you want to play again say! lets play!" ;
-                } else {
-                    speechText = "You are wrong! If you want to play again say! lets play!";
-                }
-
-                if (this.product.equals("pizza")) {
-                    speechText = "You are wrong! If you want to play again say! lets play!";
-                } else {
-                    speechText = "You are right, the actual calorie count is " + pizzaCal + ". If you want to play again say! lets play!";
-                }
-
-                if (this.product.equals("cookie")) {
-                    speechText = "You are wrong! If you want to play again say! lets play!";
-                } else {
-                    speechText = "You are right, the actual calorie count is " + cookieCal + ". If you want to play again say! lets play!";
-                }
-
+                speechText = evaluatehighResponse(this.product);
                 break;
             case "low":
-                if (this.product.equals("queso")) {
-                    speechText = "You are wrong! If you want to play again say! lets play!";
-                } else {
-                    speechText = "You are right, the actual calorie count is " + quesoCal + ". If you want to play again say! lets play!";
-                }
-
-                if (this.product.equals("pizza")) {
-                    speechText = "You are right, the actual calorie count is " + pizzaCal + ". If you want to play again say! lets play!";
-                } else {
-                    speechText = "You are wrong! If you want to play again say! lets play!";
-                }
-
-                if (this.product.equals("cookie")) {
-                    speechText = "You are right, the actual calorie count is " + cookieCal + ". If you want to play again say! lets play!";
-                } else {
-                    speechText = "You are wrong! If you want to play again say! lets play!";
-                }
+                speechText = evaluatelowResponse(this.product);
                 break;
         }
         return getAskResponse("hi Lo response", speechText);
+    }
+
+    private String evaluatehighResponse(String product) {
+
+        String speechText = "";
+
+        if (product.equals("queso")) {
+            speechText = "You are right! The actual calorie count is " + this.quesoCal + ". If you want to play again say! lets play!";
+        } else if (product.equals("pizza")) {
+            speechText = "You are wrong! The actual calorie count is " + this.pizzaCal + ". If you want to play again say! lets play!";
+        } else if (product.equals("cookie")) {
+            speechText = "You are wrong! The actual calorie count is " + this.cookieCal + ". If you want to play again say! lets play!";
+        }
+
+        return speechText;
+    }
+
+    private String evaluatelowResponse(String product) {
+
+        String speechText = "";
+
+        if (product.equals("queso")) {
+            speechText = "You are wrong! The actual calorie count is " + this.quesoCal + ". If you want to play again say! lets play!";
+        } else if (product.equals("pizza")) {
+            speechText = "You are right! The actual calorie count is " + this.pizzaCal + ". If you want to play again say! lets play!";
+        } else if (product.equals("cookie")) {
+            speechText = "You are right! The actual calorie count is " + this.cookieCal + ". If you want to play again say! lets play!";
+        }
+
+        return speechText;
     }
 
     /**
@@ -171,13 +168,13 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
                 speechText = "The classic decadent Chocolate Crinkle Cookies we all love! These are perfectly soft, tender and chewy. And they're a lot like a brownie but in cookie form.  In other words these cookies are sure to satisfy! The Calorie Count is 50. Is this too low or too high?";
                 break;
             case "queso":
-//                speechText = "Aloha queso blends creamy Monterey Jack cheese with spicy jalapenos and mild red bell peppers for the perfect medium heat. The Calorie Count is 100. Is this too low or too high?";
-                speechText = "<speak>"
-                "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>"
-                        + "</speak>";
+                speechText = "Aloha queso blends creamy Monterey Jack cheese with spicy jalapenos and mild red bell peppers for the perfect medium heat. The Calorie Count is 100. Is this too low or too high?";
+//                speechText = "<speak>" +
+//                "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>"
+//                        + "</speak>";
                 break;
             default:
-                speechText = "<speak>"
+                speechText = "<speak>" +
                         "<audio src='https://s3.amazonaws.com/ask-storage/tidePooler/OceanWaves.mp3'/>"
                         + "</speak>";
                 break;
@@ -234,7 +231,8 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
 
     /**
      * Helper method that creates a card object.
-     * @param title title of the card
+     *
+     * @param title   title of the card
      * @param content body of the card
      * @return SimpleCard the display card to be sent along with the voice response.
      */
@@ -248,6 +246,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
 
     /**
      * Helper method for retrieving an OutputSpeech object when given a string of TTS.
+     *
      * @param speechText the text that should be spoken out to the user.
      * @return an instance of SpeechOutput.
      */
@@ -261,6 +260,7 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
     /**
      * Helper method that returns a reprompt object. This is used in Ask responses where you want
      * the user to be able to respond to your speech.
+     *
      * @param outputSpeech The OutputSpeech object that will be said once and repeated if necessary.
      * @return Reprompt instance.
      */
@@ -273,7 +273,8 @@ public class HelloWorldSpeechlet implements SpeechletV2 {
 
     /**
      * Helper method for retrieving an Ask response with a simple card and reprompt included.
-     * @param cardTitle Title of the card that you want displayed.
+     *
+     * @param cardTitle  Title of the card that you want displayed.
      * @param speechText speech text that will be spoken to the user.
      * @return the resulting card and speech text.
      */
